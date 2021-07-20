@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TailwindCSS + Alpine.jsでモーダルダイアログを作ろう!</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.4/tailwind.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
   </head>
   <body>
     <div class="m-0 p-0 h-screen bg-gray-200 grid grid-rows-3 absolute"  
@@ -14,14 +17,14 @@
          x-data="{ open: false }"
          @dialog-ok.window="execute()"
          >
-      <header class="p-6">
-        <h1 class="text-xl font-bold text-center">TailwindCSS + Alpine.jsでモーダルダイアログを作ろう!</h1>
+      <header class="p-6 bg-blue-200">
+        <h1 class="text-2xl text-indigo-800 font-bold text-center">TailwindCSS + Alpine.jsでモーダルダイアログを作ろう!</h1>
       </header>
 
-      <main class="py-6 grid gap-6 bg-gray-50 overflow-y-auto">
+      <main class="p-6 grid gap-6 bg-yellow-50 overflow-y-auto">
         <p>サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。</p>
         <div class="grid justify-items-center">
-          <button @click="open = true" class="py-2 px-4 bg-blue-600 hover:bg-blue-400 text-white border rounded shadow">開く</button>
+          <button @click="open = true" class="py-2 px-4 max-h-12 bg-blue-600 hover:bg-blue-400 text-white border rounded shadow">開く</button>
         </div>
         <p>サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。</p>
         <p>サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。サンプルテキストです。</p>
@@ -34,23 +37,26 @@
       <footer class="p-6 bg-gray-600 text-white text-xs text-center" >フッターです</footer>
 
       <!-- モーダルダイアログ -->
-      <div x-show="open" x-transition.opacity
+      <div x-show="open" x-cloak  x-transition.opacity
         class="w-screen h-screen absolute top-0 left-0">
         <div class="w-screen h-screen absolute top-0 left-0 bg-gray-800 opacity-80"></div>
         <div 
           @click.outside="open = false"
-          class="w-5/6 m-auto bg-gray-200 border rounded-md shadow relative" style="top:20vh">
-          <header class="px-4 py-4 grid grid-cols-2 ">
-            <h1 class="font-bold">確認してください</h1> 
-            <a href="#" @click.prevent="open = false" class="mr-4 py-1 px-1 w-8 block right-0 absolute text-center text-xs bg-gray-200 hover:bg-gray-100 border border-gray-600 rounded" >X</a>
+          class="w-5/6 max-w-xl h-1/2 m-auto bg-gray-200 grid border rounded-md shadow relative" 
+          style="top:20vh; grid-template-rows: 4rem 1fr 6rem;">
+          <header class="px-4 py-4">
+            <h1 class="text-xl text-red-600 font-bold">確認してください</h1> 
           </header>
-          <main class="p-4 bg-white h-24">
-            <p>本当にこの操作を実行しますか？</p> 
+          <main class="p-4 bg-white grid gap-y-8 overflow-y-auto">
+            <p>本当にこの操作を実行しますか？ 実行する場合は「実行！」ボタンをクリックしてください。</p> 
+            <p>この部分はスクロール可能です。</p>
+            <p>この部分はスクロール可能です。</p>
+            <p>この部分はスクロール可能です。</p>
           </main>
-          <footer class="px-4 py-4 grid grid-cols-2 gap-x-4">
-            <button class="py-2 px-4 text-white bg-gray-600 hover:bg-gray-400 border rounded shadow"
+          <footer class="px-8 py-4 grid grid-cols-2 gap-x-6">
+            <button class="py-2 px-4 text-white bg-gray-600 hover:bg-gray-400 border rounded-md shadow"
               @click="open = false">キャンセル</button>
-            <button class="py-2 px-4 text-white bg-red-600 hover:bg-red-400 border rounded shadow"
+            <button class="py-2 px-4 text-white bg-red-600 hover:bg-red-400 border rounded-md shadow"
               @click="open = false; $dispatch('dialog-ok')">実行！</button>
           </footer>
         </div>
