@@ -40,7 +40,7 @@
           class="w-5/6 m-auto bg-gray-200 border rounded-md shadow relative" style="top:20vh">
           <header class="px-4 py-4 grid grid-cols-2 ">
             <h1 class="font-bold">確認してください</h1> 
-            <a href="#" @click="open = false" class="mr-4 py-1 px-1 w-8 block right-0 absolute text-center text-xs bg-gray-200 hover:bg-gray-100 border border-gray-600 rounded" >X</a>
+            <a href="#" @click.prevent="open = false" class="mr-4 py-1 px-1 w-8 block right-0 absolute text-center text-xs bg-gray-200 hover:bg-gray-100 border border-gray-600 rounded" >X</a>
           </header>
           <main class="p-4 bg-white h-24">
             <p>本当にこの操作を実行しますか？</p> 
