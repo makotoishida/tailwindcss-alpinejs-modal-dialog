@@ -11,7 +11,9 @@
   <body>
     <div class="m-0 p-0 h-screen bg-gray-200 grid grid-rows-3 absolute"  
          style="grid-template-rows: 6rem 1fr 4rem"
-         x-data="{ open: false }">
+         x-data="{ open: false }"
+         @dialog-ok.window="execute()"
+         >
       <header class="p-6">
         <h1 class="text-xl font-bold text-center">TailwindCSS + Alpine.jsでモーダルダイアログを作ろう!</h1>
       </header>
@@ -32,7 +34,7 @@
       <footer class="p-6 bg-gray-600 text-white text-xs text-center" >フッターです</footer>
 
       <!-- モーダルダイアログ -->
-      <div x-show="open" x-transition 
+      <div x-show="open" x-transition.opacity.duration(5000)
         class="w-screen h-screen absolute top-0 left-0">
         <div class="w-screen h-screen absolute top-0 left-0 bg-gray-800 opacity-80"></div>
         <div 
@@ -48,8 +50,8 @@
           <footer class="px-4 py-4 grid grid-cols-2 gap-x-4">
             <button class="py-2 px-4 text-white bg-gray-600 hover:bg-gray-400 border rounded shadow"
               @click="open = false">キャンセル</button>
-            <button class="py-2 px-4 text-white bg-blue-600 hover:bg-blue-400 border rounded shadow"
-              @click="open = false; alert('実行しました！')">実行！</button>
+            <button class="py-2 px-4 text-white bg-red-600 hover:bg-red-400 border rounded shadow"
+              @click="open = false; $dispatch('dialog-ok')">実行！</button>
           </footer>
         </div>
       </div>
@@ -57,5 +59,10 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.2.2/cdn.js"></script>
+    <script>
+      function execute(){
+        setTimeout(() => alert('実行しています！'), 100);
+      }
+    </script>
   </body>
 </html>
